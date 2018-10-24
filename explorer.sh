@@ -8,8 +8,8 @@ sudo apt-get install \
       zlib1g-dev wget bsdmainutils automake curl
 
 # build zend patched with addressindexing support
-git clone https://github.com/snowgem/snowgem-indexing
-cd snowgem-indexing
+git clone https://github.com/vidulum/vidulum-indexing
+cd vidulum-indexing
 chmod +x zcutil/build.sh depends/config.guess depends/config.sub autogen.sh share/genbuild.sh src/leveldb/build_detect_platform
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh --disable-rust
@@ -23,15 +23,15 @@ sudo n 4
 # install ZeroMQ libraries
 sudo apt-get -y install libzmq3-dev
 
-# install snowgem version of bitcore
-npm install snowgem/bitcore-node-snowgem
+# install vidulum version of bitcore
+npm install vidulum/bitcore-node-vidulum
 
 # create bitcore node
-./node_modules/bitcore-node-snowgem/bin/bitcore-node create snowgem-explorer
-cd snowgem-explorer
+./node_modules/bitcore-node-vidulum/bin/bitcore-node create vidulum-explorer
+cd vidulum-explorer
 
 # install insight api/ui
-../node_modules/bitcore-node-snowgem/bin/bitcore-node install snowgem/insight-api-snowgem snowgem/insight-ui-snowgem
+../node_modules/bitcore-node-vidulum/bin/bitcore-node install vidulum/insight-api-vidulum vidulum/insight-ui-vidulum
 
 # create bitcore config file for bitcore
 cat << EOF > bitcore-node.json
@@ -40,21 +40,21 @@ cat << EOF > bitcore-node.json
   "port": 3001,
   "services": [
     "bitcoind",
-    "insight-api-snowgem",
-    "insight-ui-snowgem",
+    "insight-api-vidulum",
+    "insight-ui-vidulum",
     "web"
   ],
   "servicesConfig": {
     "bitcoind": {
       "spawn": {
         "datadir": "./data",
-        "exec": "../snowgem-indexing/src/snowgemd"
+        "exec": "../vidulum-indexing/src/vidulumd"
       }
     },
-     "insight-ui-snowgem": {
+     "insight-ui-vidulum": {
       "apiPrefix": "api"
      },
-    "insight-api-snowgem": {
+    "insight-api-vidulum": {
       "routePrefix": "api"
     }
   }
@@ -63,16 +63,16 @@ cat << EOF > bitcore-node.json
 
 EOF
 
-# create snowgem.conf
-cat << EOF > data/snowgem.conf
+# create vidulum.conf
+cat << EOF > data/vidulum.conf
 server=1
 whitelist=127.0.0.1
 txindex=1
 addressindex=1
 timestampindex=1
 spentindex=1
-zmqpubrawtx=tcp://127.0.0.1:8332
-zmqpubhashblock=tcp://127.0.0.1:8332
+zmqpubrawtx=tcp://127.0.0.1:7676
+zmqpubhashblock=tcp://127.0.0.1:7676
 rpcallowip=127.0.0.1
 rpcuser=bitcoin
 rpcpassword=local321
@@ -82,7 +82,7 @@ maxconnections=1000
 
 EOF
 
-cd snowgem-explorer
+cd vidulum-explorer
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
-echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
+echo "./node_modules/bitcore-node-vidulum/bin/bitcore-node start"

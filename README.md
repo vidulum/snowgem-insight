@@ -1,3 +1,3 @@
-# snowgem-insight
+# vidulum-insight
 
 Run ./explorer.sh
