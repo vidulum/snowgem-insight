@@ -7,8 +7,8 @@ sudo apt-get install \
       autoconf libtool ncurses-dev unzip git python python-zmq \
       zlib1g-dev wget bsdmainutils automake curl
 
-# build zend patched with addressindexing support
-git clone https://github.com/vidulum/vidulum-indexing
+# build vidulumd patched with addressindexing support
+#git clone https://github.com/vidulum/vidulum-indexing
 cd vidulum-indexing
 chmod +x zcutil/build.sh depends/config.guess depends/config.sub autogen.sh share/genbuild.sh src/leveldb/build_detect_platform
 ./zcutil/fetch-params.sh
