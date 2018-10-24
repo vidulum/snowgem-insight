@@ -24,7 +24,7 @@ sudo n 4
 sudo apt-get -y install libzmq3-dev
 
 # install vidulum version of bitcore
-npm install vidulum/bitcore-node-vidulum
+npm install git+https://git@github.com/vidulum/bitcore-lib-vidulum.git
 
 # create bitcore node
 ./node_modules/bitcore-node-vidulum/bin/bitcore-node create vidulum-explorer
